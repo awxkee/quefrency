@@ -101,22 +101,16 @@ impl<T: CepstrumSample> CepstrumExecutor<T> for DefaultCepstrumPlan<T> {
                 actual: scratch.len(),
             });
         }
-        if !input.len().is_multiple_of(self.execution_length) {
-            return Err(QuefrencyError::DataIsNotMultipleOfLength {
-                expected_multiple_of: self.execution_length,
-                actual: input.len(),
+        if input.len() != output.len() {
+            return Err(QuefrencyError::InputOutputSizesMismatch {
+                c1: input.len(),
+                c2: output.len(),
             });
         }
         if !output.len().is_multiple_of(self.execution_length) {
             return Err(QuefrencyError::DataIsNotMultipleOfLength {
                 expected_multiple_of: self.execution_length,
                 actual: output.len(),
-            });
-        }
-        if input.len() != output.len() {
-            return Err(QuefrencyError::InputOutputSizesMismatch {
-                c1: input.len(),
-                c2: output.len(),
             });
         }
 
