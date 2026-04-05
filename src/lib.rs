@@ -185,10 +185,12 @@ where
     }))
 }
 
+/// Creates a cepstrum plan for `f32` samples.
 pub fn make_cepstrum_f32(len: usize, normalize: bool) -> Result<Cepstrum<f32>, QuefrencyError> {
     make_cepstrum_impl(len, normalize)
 }
 
+/// Creates a cepstrum plan for `f64` samples.
 pub fn make_cepstrum_f64(len: usize, normalize: bool) -> Result<Cepstrum<f64>, QuefrencyError> {
     make_cepstrum_impl(len, normalize)
 }
