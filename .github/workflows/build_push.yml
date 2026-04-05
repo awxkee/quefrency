@@ -77,3 +77,30 @@ jobs:
       - uses: actions/checkout@v6
       - uses: dtolnay/rust-toolchain@nightly
       - run: cargo test --features "${{ matrix.feature }}" --no-default-features
+
+
+  fuzz_arm:
+    name: Fuzzing ARM
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        feature: [ "", neon ]
+    steps:
+      - uses: actions/checkout@v6
+      - uses: dtolnay/rust-toolchain@nightly
+      - run: cargo install cargo-fuzz
+      - run: cargo fuzz run double_precision --no-default-features --features "${{ matrix.feature }}" -- -max_total_time=7
+      - run: cargo fuzz run single_precision --no-default-features --features "${{ matrix.feature }}" -- -max_total_time=7
+
+  fuzz_x86_64:
+    name: Fuzzing x86_64
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        feature: [ "", avx ]
+    steps:
+      - uses: actions/checkout@v6
+      - uses: dtolnay/rust-toolchain@nightly
+      - run: cargo install cargo-fuzz
+      - run: cargo fuzz run double_precision --no-default-features --features "${{ matrix.feature }}" -- -max_total_time=7
+      - run: cargo fuzz run single_precision --no-default-features --features "${{ matrix.feature }}" -- -max_total_time=7

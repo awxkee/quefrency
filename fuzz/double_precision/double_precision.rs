@@ -1,0 +1,21 @@
+#![no_main]
+
+use libfuzzer_sys::fuzz_target;
+
+#[derive(arbitrary::Arbitrary, Debug)]
+struct Target {
+    size: u16,
+    re: f64,
+    normalize: bool,
+}
+
+fuzz_target!(|data: Target| {
+    if data.size == 0 || data.size > 15100 {
+        return;
+    }
+    let executor = quefrency::make_cepstrum_f64(data.size as usize, data.normalize).unwrap();
+    let mut chunk = vec![data.re; data.size as usize];
+    executor.execute(&mut chunk).unwrap();
+    let mut test_target = vec![data.re; data.size as usize];
+    executor.execute_into(&chunk, &mut test_target).unwrap();
+});

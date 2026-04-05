@@ -1,3 +1,7 @@
+[workspace]
+members = ["app"]
+exclude = ["fuzz"]
+
 [package]
 name = "quefrency"
 version = "0.1.0"
