@@ -1,7 +1,6 @@
 #![no_main]
 
 use libfuzzer_sys::fuzz_target;
-use num_complex::Complex;
 
 #[derive(arbitrary::Arbitrary, Debug)]
 struct Target {

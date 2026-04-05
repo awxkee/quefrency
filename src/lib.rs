@@ -354,4 +354,28 @@ mod tests {
             );
         }
     }
+
+    #[test]
+    fn test_random_length() {
+        let mut rng = StdRng::seed_from_u64(100);
+        for _ in 0..5 {
+            let len = rng.random_range(1..512);
+            let mut input = random_positive_signal(&mut rng, len);
+
+            let expected = brute_force_cepstrum_f32(&input, true);
+
+            let cepstrum = crate::make_cepstrum_f32(len, true).unwrap();
+            cepstrum.execute(&mut input).unwrap();
+
+            for (i, (a, b)) in input.iter().zip(expected.iter()).enumerate() {
+                assert!(
+                    (a - b).abs() < EPSILON_F32,
+                    "mismatch at index {}: actual={}, expected={}",
+                    i,
+                    a,
+                    b
+                );
+            }
+        }
+    }
 }
