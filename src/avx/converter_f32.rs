@@ -71,7 +71,7 @@ impl AvxCepstrumF32 {
                 _mm256_storeu_ps(chunk_4[4..].as_mut_ptr().cast(), v1);
             }
         }
-        let rem1 = in_out.as_chunks_mut::<4>().1;
+        let rem1 = in_out.as_chunks_mut::<8>().1;
         for chunk_4 in rem1.as_chunks_mut::<4>().0.iter_mut() {
             let q0 = unsafe { _mm256_loadu_ps(chunk_4.as_ptr().cast()) };
             let q0_sqr = _mm256_mul_ps(q0, q0);

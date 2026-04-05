@@ -370,7 +370,7 @@ mod tests {
             for (i, (a, b)) in input.iter().zip(expected.iter()).enumerate() {
                 assert!(
                     (a - b).abs() < EPSILON_F32,
-                    "mismatch at index {}: actual={}, expected={}",
+                    "mismatch at index {}: actual={}, expected={} failed for size {len}",
                     i,
                     a,
                     b
