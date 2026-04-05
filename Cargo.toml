@@ -1,0 +1,25 @@
+[package]
+name = "quefrency"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.90.0"
+
+[dependencies]
+zaft = "0.3.5"
+num-traits = "0.2.19"
+num-complex = "0.4.6"
+pxfm = "0.1.28"
+
+[features]
+default = ["neon", "avx"]
+neon = []
+avx = []
+
+[dev-dependencies]
+rand = "0.10.0"
+
+[package.metadata.docs.rs]
+# To build locally:
+# RUSTDOCFLAGS="--cfg docsrs" cargo +nightly doc --all-features --no-deps --open --manifest-path ./Cargo.toml
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
